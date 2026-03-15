@@ -121,23 +121,67 @@
 }
 
 
-/* ===== Dashboard Layout ===== */
+
 
 .dashboard-layout {
+  width: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 280px 1fr;
-  min-height: 100vh;
-  background: var(--color-background);
+
+  background: var(--color-background, #ffffff);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
 }
 
 .dashboard-main {
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  overflow: hidden; /* ← ДОДАТИ: щоб скрол був тільки в content */
 }
 
 .dashboard-content {
+  flex: 1;          /* ← ДОДАТИ: займає весь простір */
   padding: 24px;
+  display: flex;    /* ← ЗМІНИТИ: з grid на flex */
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-y: auto; /* ← скрол тут */
+}
+.dashboard-row{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* права колонка */
+.dashboard-right{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  min-width: 0;
+}
+
+
+.dashboard-right > *{
+  width: 100%;               
+  min-width: 0;
+}
+
+.dashboard-left{
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.dashboard-left,
+.dashboard-right {
+  min-width: 0;
 }
 
 /* ===== Sidebar ===== */
@@ -218,7 +262,7 @@ transition: 150ms ease-in-out;
   opacity: 0.8;
 }
 
-/* theme button (reuse твої класи) */
+
 .nav-actions {
   display: flex;
   gap: 10px;
@@ -393,4 +437,500 @@ transition: 150ms ease-in-out;
   .statsbar {
     grid-template-columns: 1fr;
   }
+}
+
+
+/* Money Flow chart */
+
+.money-flow-content {
+  /* width: 100%; */
+  min-width: 0;
+  margin: 0;
+
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-stroke, rgba(0,0,0,0.08));
+  border-radius: 18px;
+  padding: 16px 16px 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.money-flow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.money-flow-text h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--text, #111827);
+}
+
+.money-flow-action {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.money-flow-account-btn,
+.money-flow-date-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border, rgba(0,0,0,0.12));
+  background: var(--card, #fff);
+  color: var(--text, #111827);
+
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.money-flow-account-btn img,
+.money-flow-date-btn img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.75;
+}
+
+.money-flow-chart {
+  flex: 1;
+  min-height: 260px; 
+  max-height: 300px; 
+}
+/* легкі підписи осей */
+.money-flow-content .recharts-cartesian-axis-tick text {
+  fill: var(--muted, #6b7280);
+  font-size: 12px;
+}
+
+/* лінії сітки */
+.money-flow-content .recharts-cartesian-grid line {
+  stroke: var(--border, rgba(0,0,0,0.10));
+}
+
+/* легенда */
+.money-flow-content .recharts-legend-item-text {
+  color: var(--muted, #6b7280) !important;
+  font-size: 12px;
+}
+
+
+.budget-card-content {
+  width: 100%;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-stroke, rgba(0,0,0,0.08));
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+}
+
+.budget-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.budget-card-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text, #111827);
+}
+
+.budget-card-body {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.budget-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;          /* займає вільний простір зліва */
+  min-width: 0;
+}
+
+
+.budget-card-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted, #6b7280);
+}
+
+.budget-card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.budget-card-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* donut zone */
+.budget-card-chart {
+  position: relative;
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+}
+
+
+.budget-card-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+.budget-card-center-label {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted, #6b7280);
+  line-height: 1.3;
+}
+
+.budget-card-center-value {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary, #111827);
+}
+
+.budget-card-badge {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-stroke, rgba(0,0,0,0.10));
+  border-radius: 10px;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.budget-card-badge-percent {
+  font-size: 11px;
+  color: var(--muted, #6b7280);
+}
+
+.budget-card-badge-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text, #111827);
+}
+
+
+.recent-card-content {
+  background: var(--card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+
+  /* важливо для grid */
+  min-width: 0;
+}
+
+.recent-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.recent-card-header h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--text, #111827);
+}
+
+.recent-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.recent-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border, rgba(0,0,0,0.12));
+  background: var(--card, #fff);
+  color: var(--text, #111827);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.recent-card-btn img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.75;
+}
+
+/* Table */
+.recent-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.recent-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 720px; /* щоб не ламалось на маленьких екранах */
+}
+
+.recent-table thead th {
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted, #6b7280);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border, rgba(0,0,0,0.08));
+  white-space: nowrap;
+}
+
+.recent-table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  color: var(--text, #111827);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.recent-date {
+  color: var(--muted, #6b7280);
+}
+
+.recent-amount {
+  font-weight: 600;
+}
+.recent-amount.is-minus { color: var(--text, #111827); }
+.recent-amount.is-plus { color: var(--success, #10b981); }
+
+.recent-pay {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recent-pay-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(109, 94, 247, 0.12);
+  color: var(--primary, #6D5EF7);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.recent-pay-name {
+  font-weight: 600;
+}
+
+.recent-method,
+.recent-category {
+  color: var(--muted, #6b7280);
+}
+
+
+/* ===== Saving Goals Card ===== */
+.saving-card-content {
+  background: var(--card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+}
+
+.saving-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.saving-card-header h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--text, #111827);
+}
+
+.saving-card-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid var(--border, rgba(0,0,0,0.12));
+  background: var(--card, #fff);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.saving-card-icon-btn img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.75;
+}
+
+.saving-card-body {
+  display: grid;
+  gap: 14px;
+}
+
+.goal-item {
+  display: grid;
+  gap: 8px;
+}
+
+.goal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.goal-title {
+  font-size: 13px;
+  color: var(--muted, #6b7280);
+  font-weight: 600;
+}
+
+.goal-right {
+  font-size: 13px;
+  color: var(--primary, #6D5EF7);
+  font-weight: 700;
+}
+
+.goal-middle {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.goal-percent {
+  font-size: 12px;
+  color: var(--text, #111827);
+  font-weight: 700;
+
+  background: rgba(109, 94, 247, 0.12);
+  color: var(--primary, #6D5EF7);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.goal-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(109, 94, 247, 0.12);
+  overflow: hidden;
+}
+
+.goal-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary, #6D5EF7);
+}
+
+/* ===== Daily Limit Card ===== */
+.daily-card-content {
+  background: var(--card, #fff);
+  border: 1px solid var(--border, rgba(0,0,0,0.08));
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+}
+
+.daily-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.daily-card-header h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--text, #111827);
+}
+
+.daily-card-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid var(--border, rgba(0,0,0,0.12));
+  background: var(--card, #fff);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.daily-card-icon-btn img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.75;
+}
+
+.daily-card-sub {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: var(--muted, #6b7280);
+}
+
+.daily-progress {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(109, 94, 247, 0.12);
+  overflow: hidden;
+}
+
+.daily-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary, #6D5EF7);
+}
+
+.daily-progress-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted, #6b7280);
 }
