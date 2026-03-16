@@ -16,22 +16,22 @@ function Dashboard() {
       <SideBar />
       <div className="dashboard-main">
         <TopBar />
-<div className="dashboard-content">
-  <StatsBar />
+          <div className="dashboard-content">
+            <StatsBar />
 
-  <div className="dashboard-row">
-    <div className="dashboard-left">
-      <MoneyFlowChart />
-      <RecentTransactionsCard />
-    </div>
+            <div className="dashboard-row">
+              <div className="dashboard-left">
+                <MoneyFlowChart />
+                <RecentTransactionsCard />
+              </div>
 
-    <div className="dashboard-right">
-      <BudgetCard />
-      <SavingGoalsCard />
-      <DailyLimitCard />
-    </div>
-  </div>
-</div>
+              <div className="dashboard-right">
+                <BudgetCard />
+                <SavingGoalsCard />
+                <DailyLimitCard />
+              </div>
+            </div>
+          </div>
       </div>
     </div>
 

@@ -8,6 +8,9 @@ import Step from "./components/MainPage/Step";
 import Footer from "./components/MainPage/Footer";
 
 import Dashboard from "./pages/DashBoard";
+import Profile from "./pages/Profile";
+import AuthPage from "./pages/AuthPage";
+import HistoryPage from "./pages/HistoryPage";
 
 function Home() {
   return (
@@ -30,6 +33,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element= {<Profile />} />
+        <Route path="/authpage" element= {<AuthPage />} />
+        <Route path="/history" element= {<HistoryPage />} />
+
       </Routes>
     </BrowserRouter>
   );

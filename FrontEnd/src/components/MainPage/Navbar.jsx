@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import Sun from "../../assets/img/sun.svg";
 import Moon from "../../assets/img/moon.svg";
 
 function Navbar() {
   const [theme, setTheme] = useState("light");
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.classList.toggle("dark", theme === "dark");
@@ -20,6 +22,16 @@ function Navbar() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   }
 
+  function goToLogin() {
+    setMenuOpen(false);
+    navigate("/authpage", { state: { mode: "login" } });
+  }
+
+  function goToSignup() {
+    setMenuOpen(false);
+    navigate("/authpage", { state: { mode: "signup" } });
+  }
+
   return (
     <div className="navbar-content">
       <div className="nav-logo">
@@ -29,14 +41,21 @@ function Navbar() {
       </div>
 
       <ul className="nav-items">
-        <a href="#features" className="nav-link"><li>Features</li></a>
-        <a href="#how" className="nav-link"><li>How It Works</li></a>
-        <a href="#pricing" className="nav-link"><li>Pricing</li></a>
-        <a href="#testimonials" className="nav-link"><li>Testimonials</li></a>
+        <a href="#features" className="nav-link">
+          <li>Features</li>
+        </a>
 
-        <Link to="/dashboard" className="nav-link">
-          <li>Dashboard</li>
-        </Link>
+        <a href="#how" className="nav-link">
+          <li>How It Works</li>
+        </a>
+
+        <a href="#pricing" className="nav-link">
+          <li>Pricing</li>
+        </a>
+
+        <a href="#testimonials" className="nav-link">
+          <li>Testimonials</li>
+        </a>
       </ul>
 
       <div className="nav-actions">
@@ -52,8 +71,13 @@ function Navbar() {
           />
         </button>
 
-        <button className="nav-login">Log In</button>
-        <button className="nav-trial">Start Trial</button>
+        <button className="nav-login" onClick={goToLogin}>
+          Log In
+        </button>
+
+        <button className="nav-trial" onClick={goToSignup}>
+          Start Trial
+        </button>
 
         <button
           className="nav-burger"
@@ -77,19 +101,47 @@ function Navbar() {
         </button>
 
         <div className="nav-mobile-links">
-          <a className="nav-mobile-link" href="#features" onClick={() => setMenuOpen(false)}>Features</a>
-          <a className="nav-mobile-link" href="#how" onClick={() => setMenuOpen(false)}>How It Works</a>
-          <a className="nav-mobile-link" href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
-          <a className="nav-mobile-link" href="#testimonials" onClick={() => setMenuOpen(false)}>Testimonials</a>
+          <a
+            className="nav-mobile-link"
+            href="#features"
+            onClick={() => setMenuOpen(false)}
+          >
+            Features
+          </a>
 
-          <Link className="nav-mobile-link" to="/dashboard" onClick={() => setMenuOpen(false)}>
-            Dashboard
-          </Link>
+          <a
+            className="nav-mobile-link"
+            href="#how"
+            onClick={() => setMenuOpen(false)}
+          >
+            How It Works
+          </a>
+
+          <a
+            className="nav-mobile-link"
+            href="#pricing"
+            onClick={() => setMenuOpen(false)}
+          >
+            Pricing
+          </a>
+
+          <a
+            className="nav-mobile-link"
+            href="#testimonials"
+            onClick={() => setMenuOpen(false)}
+          >
+            Testimonials
+          </a>
         </div>
 
         <div className="nav-mobile-actions">
-          <button className="nav-login" onClick={() => setMenuOpen(false)}>Log In</button>
-          <button className="nav-trial" onClick={() => setMenuOpen(false)}>Start Trial</button>
+          <button className="nav-login" onClick={goToLogin}>
+            Log In
+          </button>
+
+          <button className="nav-trial" onClick={goToSignup}>
+            Start Trial
+          </button>
         </div>
       </div>
     </div>
