@@ -1,7 +1,7 @@
-import StepCard from "./Step-card";
-import LockIMG from "../assets/img/lock.svg";
-import StarIMG from "../assets/img/star.svg";
-import WalletIMG from "../assets/img/wallet-minimal.svg";
+import StepCard from "../MainPage/Step-card";
+import LockIMG from "../../assets/img/lock.svg"
+import StarIMG from "../../assets/img/star.svg";
+import WalletIMG from "../../assets/img/wallet-minimal.svg";
 
 function Step() {
   return (
